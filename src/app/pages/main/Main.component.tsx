@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { ReactNode } from "react";
+
+/*Interfaces*/
 import {
     IDefaultProps,
     ITask
 } from "../../interfaces/interfaces";
 import { IMainState } from "./Main.interface";
-import { BackendService } from "../../services/backend.service";
 import { IBackendService } from "../../services/backend.interface";
 
-export class Main extends React.Component<IDefaultProps, IMainState> {
+/*Services*/
+import { BackendService } from "../../services/backend.service";
+
+/*Components*/
+import { ToDo } from "../../components/todo/ToDo.component";
+
+export class MainComponent extends React.Component<IDefaultProps, IMainState> {
     private backendService: IBackendService;
 
     constructor(props: IDefaultProps) {
@@ -25,15 +32,11 @@ export class Main extends React.Component<IDefaultProps, IMainState> {
     }
 
     render(): ReactNode {
-        const listItems: ReactNode = this.state.tasks.map((value) =>
-            <li key={value.id}>{value.description}</li>
-        );
-
         return (
             <div>
                 <div>Hello React from the main page</div>
 
-                <ul>{listItems}</ul>
+                <ToDo tasks = { this.state.tasks }/>
             </div>
         );
     }
