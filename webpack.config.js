@@ -5,10 +5,14 @@ module.exports = {
     entry: path.join(__dirname, "src/index.tsx"),
     output: {
         path: path.join(__dirname, "/dist"),
-        filename: "index_bundle.js"
+        filename: "index_bundle.js",
+        publicPath: '/'
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
+    },
+    devServer: {
+        historyApiFallback: true
     },
     module: {
         rules: [

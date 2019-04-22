@@ -1,4 +1,6 @@
-export interface IDefaultProps {}
+export interface IDefaultProps {
+    history?: string[]
+}
 export interface IDefaultState {}
 
 export interface ITask {

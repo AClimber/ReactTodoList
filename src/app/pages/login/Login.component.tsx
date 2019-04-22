@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CSSProperties, ReactNode} from "react";
+import { CSSProperties, ReactNode } from "react";
 
 /*Interfaces*/
 import {
@@ -7,9 +7,10 @@ import {
     IDefaultProps,
     IUser
 } from "../../interfaces/interfaces";
-import {ILoginState} from "./Login.interface";
-import {AuthService} from "../../services/authorization/authorization.service";
-import {IAuthService} from "../../services/authorization/authorization.interface";
+import { ILoginState } from "./Login.interface";
+import { AuthService } from "../../services/authorization/authorization.service";
+import { IAuthService } from "../../services/authorization/authorization.interface";
+import { ROUTES } from "../../routes";
 
 export class LoginComponent extends React.Component<IDefaultProps, ILoginState> {
     private authService: IAuthService;
@@ -40,6 +41,7 @@ export class LoginComponent extends React.Component<IDefaultProps, ILoginState> 
                 this.setState({
                     validationMessage: ''
                 });
+                this.props.history.push(ROUTES.DASHBOARD);
             })
             .catch((error) => {
                 this.setState({
