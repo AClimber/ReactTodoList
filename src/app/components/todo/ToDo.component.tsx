@@ -14,7 +14,7 @@ export class ToDo extends React.Component<IToDoProps, IToDoState> {
 
     render(): React.ReactNode {
         const listItems: ReactNode = this.props.tasks.map((value) =>
-            <ToDoItem task = {value}/>
+            <ToDoItem task = {value} key = {value.id}/>
         );
 
         return <ul>{listItems}</ul>;
