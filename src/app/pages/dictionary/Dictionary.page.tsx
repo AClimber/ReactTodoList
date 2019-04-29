@@ -8,9 +8,9 @@ import {
 } from "../../interfaces/interfaces";
 
 /*Components*/
-import {Dictionary} from "../../components/dictionary/Dictionary.component";
+import {DictionaryComponent} from "../../components/dictionary/Dictionary.component";
 
-export class DictionaryComponent extends React.Component<IDefaultProps, IDefaultState> {
+export class DictionaryPage extends React.Component<IDefaultProps, IDefaultState> {
     constructor(props: IDefaultProps) {
         super(props);
     }
@@ -22,7 +22,7 @@ export class DictionaryComponent extends React.Component<IDefaultProps, IDefault
             <div>
                 <div>Dictionary page</div>
                 <hr/>
-                <Dictionary></Dictionary>
+                <DictionaryComponent></DictionaryComponent>
             </div>
         );
     }

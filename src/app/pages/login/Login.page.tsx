@@ -12,7 +12,7 @@ import { AuthService } from "../../services/authorization/authorization.service"
 import { IAuthService } from "../../services/authorization/authorization.interface";
 import { ROUTES } from "../../routes";
 
-export class LoginComponent extends React.Component<IDefaultProps, ILoginState> {
+export class LoginPage extends React.Component<IDefaultProps, ILoginState> {
     private authService: IAuthService;
 
     constructor(props: IDefaultProps) {

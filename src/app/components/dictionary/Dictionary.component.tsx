@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {CSSProperties, ReactNode} from "react";
+import {ReactNode} from "react";
 
 import {ICategory, IDictionaryProps, IDictionaryState} from "./Dictionary.interface";
 import {CategoryItem} from "./categoryItem/CategoryItem.component";
 import {filter, map} from "lodash-es";
 import {DictionaryStyles} from "./Dictionary.style";
 
-export class Dictionary extends React.Component<IDictionaryProps, IDictionaryState> {
+export class DictionaryComponent extends React.Component<IDictionaryProps, IDictionaryState> {
     constructor(props: IDictionaryProps) {
         super(props);
 

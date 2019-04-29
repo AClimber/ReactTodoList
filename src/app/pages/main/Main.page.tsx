@@ -15,7 +15,7 @@ import { BackendService } from "../../services/backend.service";
 /*Components*/
 import { ToDo } from "../../components/todo/ToDo.component";
 
-export class MainComponent extends React.Component<IDefaultProps, IMainState> {
+export class MainPage extends React.Component<IDefaultProps, IMainState> {
     private backendService: IBackendService;
 
     constructor(props: IDefaultProps) {
