@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Link, Switch } from "react-ro
 import { IDefaultProps, IDefaultState } from "../interfaces/interfaces";
 import { LoginComponent } from "./login/Login.component";
 import { MainComponent } from "./main/Main.component";
+import {DictionaryComponent} from "./dictionary/Dictionary.component";
 import { NotFound } from "./notFound/NotFound.component";
 
 import { ROUTES } from "../../app/routes";
@@ -19,21 +20,22 @@ export class AppComponent extends React.Component<IDefaultProps, IDefaultState> 
 
     render() {
         const loggedIn = true;
-        const { LOGIN, DASHBOARD, NOT_FOUND } = ROUTES;
+        const { LOGIN, DASHBOARD, DICTIONARY, NOT_FOUND } = ROUTES;
 
         return (
             <Router>
                 <Switch>
-                    <Route path={LOGIN} component={LoginComponent} />
-                    <Route path={DASHBOARD} component={MainComponent} />
-                    <Route path={NOT_FOUND} component={NotFound} />
                     <Route exact path="/" render={() => (
                         loggedIn ? (
-                            <Redirect to={DASHBOARD}/>
+                            <Redirect to={DICTIONARY}/>
                         ) : (
                             <Redirect to={LOGIN}/>
                         )
                     )}/>
+                    <Route path={LOGIN} component={LoginComponent} />
+                    <Route path={DASHBOARD} component={MainComponent} />
+                    <Route path={DICTIONARY} component={DictionaryComponent} />
+                    <Route path={NOT_FOUND} component={NotFound} />
                 </Switch>
             </Router>
         );
