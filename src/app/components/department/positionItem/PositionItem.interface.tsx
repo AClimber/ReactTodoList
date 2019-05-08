@@ -1,9 +1,13 @@
 import {IAttribute, ICategory} from "../../dictionary/Dictionary.interface";
+import { IAttributeWithCatagory } from "../Department.interface";
 
-export interface IPositionItemState {}
+export interface IPositionItemState {
+}
 export interface IPositionItemProps {
     item: IPositionItem;
-    list: ICategory[];
+    categoryList: ICategory[];
+    attributeList: IAttributeWithCatagory[];
+    onChangeItem: (item: IPositionItem) => void;
 }
 
 export interface IPositionItem {

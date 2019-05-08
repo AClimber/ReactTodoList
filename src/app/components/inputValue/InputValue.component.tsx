@@ -49,11 +49,12 @@ export class InputValueComponent extends React.Component<IInputValueProps, IInpu
         const inputElement = this.state.isEditMode
             ? <input value={this.props.value} onChange={this.onValueChange} onBlur={this.onBlur}/>
             : <span>{this.props.value}</span>;
+        const removeButtonStyle: React.CSSProperties = this.props.onRemove ? {} : {display: 'none'};
         return (
             <div>
                 {inputElement}
                 <button onClick={this.onModeChange} disabled={this.state.isEditMode}>Edit name</button>
-                <button onClick={this.onRemove}>Remove</button>
+                <button style={removeButtonStyle} onClick={this.onRemove}>Remove</button>
             </div>
         );
     }
