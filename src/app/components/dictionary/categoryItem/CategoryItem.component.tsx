@@ -7,6 +7,7 @@ import {IDefaultState} from "../../../interfaces/interfaces";
 
 import {InputValueComponent} from "../../inputValue/InputValue.component"
 import {DictionaryStyles} from "../Dictionary.style";
+import { CommonStyles } from '../../../styles/Common.style';
 
 export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultState> {
     constructor(props: ICategoryItemProps) {
@@ -74,21 +75,17 @@ export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultSt
         });
 
         return (
-            <div style={DictionaryStyles.CategoryItemContainer}>
-                <div style={DictionaryStyles.CategoryItemHeader}>
-                    <InputValueComponent
-                        value={this.props.category.name}
-                        onChange={this.onCategoryChange}
-                        onRemove={this.onCategoryRemove}
-                    ></InputValueComponent>
-                </div>
-
-                <div style={DictionaryStyles.CategoryItemBody}>
-                    {attributesElement}
-                    <button className="add-button" onClick={this.addNewAttribute} style={DictionaryStyles.AddCategoryButton}>
-                        Add attribute
-                    </button>
-                </div>
+            <div style={CommonStyles.Container}>
+                <InputValueComponent
+                    value={this.props.category.name}
+                    onChange={this.onCategoryChange}
+                    onRemove={this.onCategoryRemove}
+                ></InputValueComponent>
+                <hr/>
+                {attributesElement}
+                <button className="add-button" onClick={this.addNewAttribute} style={CommonStyles.Button}>
+                    Add attribute
+                </button>
             </div>
         );
     }

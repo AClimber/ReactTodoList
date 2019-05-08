@@ -3,6 +3,7 @@ import * as React from 'react';
 import {IOrderProps, IOrderState, IOrder} from './Order.interface';
 import {filter, map} from 'lodash-es';
 import {OrderItemComponent} from './orderItem/OrderItem.component';
+import {CommonStyles} from '../../styles/Common.style';
 
 export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
     constructor(props: IOrderProps) {
@@ -118,14 +119,14 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             );
         });
         const orderTable = (
-            <table>
+            <table style = {CommonStyles.Table}>
                 <thead>
                     <tr>
-                        <th>Position</th>
-                        <th>Amount</th>
-                        <th>Client</th>
-                        <th>Price</th>
-                        <th></th>
+                        <th style={CommonStyles.TableColumn}>Position</th>
+                        <th style={CommonStyles.TableColumn}>Amount</th>
+                        <th style={CommonStyles.TableColumn}>Client</th>
+                        <th style={CommonStyles.TableColumn}>Price</th>
+                        <th style={CommonStyles.TableColumn}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,7 +139,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             <div className="container">
                 {orderTable}
 
-                <button onClick={this.addNewOrder}>
+                <button style={CommonStyles.Button} onClick={this.addNewOrder}>
                     Add order
                 </button>
             </div>

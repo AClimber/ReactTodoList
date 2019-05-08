@@ -3,7 +3,7 @@ import {IDepartmentProps, IDepartmentState} from "./Department.interface";
 import {PositionItemComponent} from "./positionItem/PositionItem.component";
 import {IPositionItem} from "./positionItem/PositionItem.interface";
 import {map, filter} from "lodash-es";
-import {DepartmentStyles} from "./Department.styles";
+import {CommonStyles} from '../../styles/Common.style';
 
 export class DepartmentComponent extends React.Component<IDepartmentProps, IDepartmentState> {
     constructor(props: IDepartmentProps) {
@@ -98,14 +98,14 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             );
         });
         const positionListTable = (
-            <table style = {DepartmentStyles.Table}>
+            <table style = {CommonStyles.Table}>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Attribute</th>
-                        <th>Value</th>
-                        <th></th>
+                        <th style={CommonStyles.TableColumn}>Name</th>
+                        <th style={CommonStyles.TableColumn}>Category</th>
+                        <th style={CommonStyles.TableColumn}>Attribute</th>
+                        <th style={CommonStyles.TableColumn}>Value</th>
+                        <th style={CommonStyles.TableColumn}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,7 +118,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             <div className="container">
                 {positionListTable}
 
-                <button onClick={this.addNewPosition}>
+                <button style={CommonStyles.Button} onClick={this.addNewPosition}>
                     Add position
                 </button>
             </div>

@@ -14,7 +14,7 @@ export class DashboardPage extends React.Component<IDefaultProps, IDefaultState>
     render(): ReactNode {
         return (
             <div>
-                <div>Dashboard page</div>
+                <h3>Dashboard page</h3>
                 <hr/>
             </div>
         );
