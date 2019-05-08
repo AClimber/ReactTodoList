@@ -16,7 +16,7 @@ export class CustomSelectComponent extends React.Component<ICustomSelectProps, I
         this.props.onChange(selectedValue);
     }
 
-    private getOptionsList(data): IOption[] {
+    private getOptionsList(data: any): IOption[] {
         return map(data, item => {
             return {value: item.id, label: item.name};
         });

@@ -3,11 +3,6 @@ export interface IDefaultProps {
 }
 export interface IDefaultState {}
 
-export interface ITask {
-    id: number;
-    description: string;
-}
-
 export interface ICredential {
     username: string;
     password: string;

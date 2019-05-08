@@ -4,7 +4,6 @@ import {
     IDefaultProps,
     IDefaultState
 } from "../../interfaces/interfaces";
-
 import {OrderComponent} from '../../components/order/Order.component';
 
 export class OrderPage extends React.Component<IDefaultProps, IDefaultState> {

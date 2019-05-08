@@ -47,7 +47,7 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
     }
 
     private priceChange(event: React.ChangeEvent): void {
-        //validate value
+        //ToDo: validate value
         const isValid = true;
         const value = event.target['value'];
 

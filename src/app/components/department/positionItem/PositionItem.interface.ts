@@ -1,5 +1,5 @@
 import {IAttribute, ICategory} from "../../dictionary/Dictionary.interface";
-import { IAttributeWithCatagory } from "../Department.interface";
+import {IAttributeWithCatagory} from "../Department.interface";
 
 export interface IPositionItemState {
 }

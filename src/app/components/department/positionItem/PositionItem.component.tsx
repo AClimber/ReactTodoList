@@ -36,7 +36,7 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
     }
 
     private valueChange(event: React.ChangeEvent): void {
-        //validate value
+        //ToDo: validate value
         const isValid = true;
         const value = event.target['value'];
 
