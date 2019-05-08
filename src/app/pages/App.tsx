@@ -6,6 +6,7 @@ import {LoginPage} from "./login/Login.page";
 import {MainPage} from "./main/Main.page";
 import {DictionaryPage} from "./dictionary/Dictionary.page";
 import {DepartmentPage} from "./department/Department.page";
+import {OrderPage} from "./order/Order.page";
 import {NotFound} from "./notFound/NotFound.page";
 
 import {ROUTES} from "../../app/routes";
@@ -21,14 +22,14 @@ export class AppComponent extends React.Component<IDefaultProps, IDefaultState> 
 
     render() {
         const loggedIn = true;
-        const { LOGIN, DASHBOARD, DICTIONARY, DEPARTMENT, NOT_FOUND } = ROUTES;
+        const { LOGIN, DASHBOARD, DICTIONARY, DEPARTMENT, ORDER, NOT_FOUND } = ROUTES;
 
         return (
             <Router>
                 <Switch>
                     <Route exact path="/" render={() => (
                         loggedIn ? (
-                            <Redirect to={DEPARTMENT}/>
+                            <Redirect to={ORDER}/>
                         ) : (
                             <Redirect to={LOGIN}/>
                         )
@@ -37,6 +38,7 @@ export class AppComponent extends React.Component<IDefaultProps, IDefaultState> 
                     <Route path={DASHBOARD} component={MainPage} />
                     <Route path={DEPARTMENT} component={DepartmentPage} />
                     <Route path={DICTIONARY} component={DictionaryPage} />
+                    <Route path={ORDER} component={OrderPage} />
                     <Route path={NOT_FOUND} component={NotFound} />
                 </Switch>
             </Router>

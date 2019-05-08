@@ -17,6 +17,7 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
         this.attributeChange = this.attributeChange.bind(this);
         this.valueChange = this.valueChange.bind(this);
         this.nameChange = this.nameChange.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
     
     private categoryChange(selectedOption: ICategory): void {
@@ -54,6 +55,10 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
             name: value
         });
         this.props.onChangeItem(updatedItem); 
+    }
+
+    private removeItem():void {
+        this.props.onRemoveItem(this.props.item.id); 
     }
 
     render(): React.ReactNode {
@@ -103,6 +108,9 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
                 <td>
                     {valueElement}
                 </td>
+                <th>
+                    <button onClick={this.removeItem}>Remove</button>
+                </th>
             </tr>
         );
     }

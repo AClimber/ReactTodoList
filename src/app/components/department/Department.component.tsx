@@ -2,7 +2,7 @@ import * as React from 'react';
 import {IDepartmentProps, IDepartmentState} from "./Department.interface";
 import {PositionItemComponent} from "./positionItem/PositionItem.component";
 import {IPositionItem} from "./positionItem/PositionItem.interface";
-import {map} from "lodash-es";
+import {map, filter} from "lodash-es";
 import {DepartmentStyles} from "./Department.styles";
 
 export class DepartmentComponent extends React.Component<IDepartmentProps, IDepartmentState> {
@@ -17,6 +17,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
 
         this.addNewPosition = this.addNewPosition.bind(this);
         this.onChangeItem = this.onChangeItem.bind(this);
+        this.onRemoveItem = this.onRemoveItem.bind(this);
     }
 
     componentWillMount(): void {
@@ -75,6 +76,14 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
         });
     }
 
+    private onRemoveItem(id: number): void {
+        this.setState({
+            positionList: filter(this.state.positionList, position => {
+                return position.id !== id;
+            })
+        });
+    }
+
     render(): React.ReactNode {
         const positionListElement = map(this.state.positionList, positionItem => {
             return (
@@ -84,6 +93,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                     categoryList={this.state.categoryList}
                     attributeList={this.state.attributeList}
                     onChangeItem={this.onChangeItem}
+                    onRemoveItem={this.onRemoveItem}
                 />
             );
         });
@@ -95,6 +105,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                         <th>Category</th>
                         <th>Attribute</th>
                         <th>Value</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

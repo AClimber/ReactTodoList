@@ -3,5 +3,6 @@ export enum ROUTES {
     DASHBOARD = "/dashboard",
     DICTIONARY = "/dictionary",
     DEPARTMENT = "/department",
+    ORDER = "/order",
     NOT_FOUND = "*"
 }

@@ -8,6 +8,7 @@ export interface IPositionItemProps {
     categoryList: ICategory[];
     attributeList: IAttributeWithCatagory[];
     onChangeItem: (item: IPositionItem) => void;
+    onRemoveItem: (id: number) => void;
 }
 
 export interface IPositionItem {
