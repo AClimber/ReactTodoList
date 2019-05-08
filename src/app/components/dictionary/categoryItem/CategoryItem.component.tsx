@@ -6,7 +6,6 @@ import {IAttribute, ICategory} from "../Dictionary.interface";
 import {IDefaultState} from "../../../interfaces/interfaces";
 
 import {InputValueComponent} from "../../inputValue/InputValue.component"
-import {DictionaryStyles} from "../Dictionary.style";
 import { CommonStyles } from '../../../styles/Common.style';
 
 export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultState> {

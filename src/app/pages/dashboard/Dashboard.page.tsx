@@ -16,6 +16,7 @@ export class DashboardPage extends React.Component<IDefaultProps, IDefaultState>
             <div>
                 <h3>Dashboard page</h3>
                 <hr/>
+                Here will information about Orders which was created on the Order Page!
             </div>
         );
     }

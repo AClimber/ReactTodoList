@@ -106,7 +106,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
     }
 
     render(): React.ReactNode {
-        const orderListElement = map(this.state.orderList, order => {
+        const orderListElement: React.ReactNode = map(this.state.orderList, order => {
             return (
                 <OrderItemComponent
                     key={order.id}
@@ -118,22 +118,24 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
                 />
             );
         });
-        const orderTable = (
-            <table style = {CommonStyles.Table}>
-                <thead>
-                    <tr>
-                        <th style={CommonStyles.TableColumn}>Position</th>
-                        <th style={CommonStyles.TableColumn}>Amount</th>
-                        <th style={CommonStyles.TableColumn}>Client</th>
-                        <th style={CommonStyles.TableColumn}>Price</th>
-                        <th style={CommonStyles.TableColumn}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {orderListElement}
-                </tbody>
-            </table>
-        );
+        const orderTable: React.ReactNode = this.state.orderList.length > 0
+            ? (
+                <table style = {CommonStyles.Table}>
+                    <thead>
+                        <tr>
+                            <th style={CommonStyles.TableColumn}>Position</th>
+                            <th style={CommonStyles.TableColumn}>Amount</th>
+                            <th style={CommonStyles.TableColumn}>Client</th>
+                            <th style={CommonStyles.TableColumn}>Price</th>
+                            <th style={CommonStyles.TableColumn}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orderListElement}
+                    </tbody>
+                </table>
+            )
+            : null;
 
         return (
             <div className="container">

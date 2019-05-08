@@ -85,7 +85,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
     }
 
     render(): React.ReactNode {
-        const positionListElement = map(this.state.positionList, positionItem => {
+        const positionListElement: React.ReactNode = map(this.state.positionList, positionItem => {
             return (
                 <PositionItemComponent 
                     key={positionItem.id}
@@ -97,22 +97,24 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                 />
             );
         });
-        const positionListTable = (
-            <table style = {CommonStyles.Table}>
-                <thead>
-                    <tr>
-                        <th style={CommonStyles.TableColumn}>Name</th>
-                        <th style={CommonStyles.TableColumn}>Category</th>
-                        <th style={CommonStyles.TableColumn}>Attribute</th>
-                        <th style={CommonStyles.TableColumn}>Value</th>
-                        <th style={CommonStyles.TableColumn}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {positionListElement}
-                </tbody>
-            </table>
-        );
+        const positionListTable: React.ReactNode = this.state.positionList.length > 0
+            ? (
+                <table style = {CommonStyles.Table}>
+                    <thead>
+                        <tr>
+                            <th style={CommonStyles.TableColumn}>Name</th>
+                            <th style={CommonStyles.TableColumn}>Category</th>
+                            <th style={CommonStyles.TableColumn}>Attribute</th>
+                            <th style={CommonStyles.TableColumn}>Value</th>
+                            <th style={CommonStyles.TableColumn}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {positionListElement}
+                    </tbody>
+                </table>
+            )
+            : null;
 
         return (
             <div className="container">
