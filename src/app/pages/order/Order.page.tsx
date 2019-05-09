@@ -14,7 +14,7 @@ export class OrderPage extends React.Component<IDefaultProps, IDefaultState> {
     render(): React.ReactNode {
         return (
             <div>
-                <h3>Order page</h3>
+                <h3>Страница формирования заказа</h3>
                 <hr/>
                 <OrderComponent/>
             </div>

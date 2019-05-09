@@ -32,6 +32,7 @@ export class CustomSelectComponent extends React.Component<ICustomSelectProps, I
                 onChange={this.optionChange}
                 options={options}
                 isDisabled={isDisabled}
+                placeholder="Выберите значение из списка"
             />
         );
     }

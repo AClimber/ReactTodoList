@@ -15,7 +15,7 @@ export class DepartmentPage extends React.Component<IDefaultProps, IDefaultState
     render(): ReactNode {
         return (
             <div>
-                <h3>Department page</h3>
+                <h3>Страница формирования сотставлющих заказа</h3>
                 <hr/>
                 <DepartmentComponent/>
             </div>

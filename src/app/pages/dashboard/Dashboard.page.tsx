@@ -14,9 +14,9 @@ export class DashboardPage extends React.Component<IDefaultProps, IDefaultState>
     render(): ReactNode {
         return (
             <div>
-                <h3>Dashboard page</h3>
+                <h3>Список заказов</h3>
                 <hr/>
-                Here will information about Orders which was created on the Order Page!
+                Здесь будут отражаться информация о созданных заказов.
             </div>
         );
     }

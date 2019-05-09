@@ -26,25 +26,25 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             categoryList: [
                 {
                     id: 1,
-                    name: 'Paper',
+                    name: 'Бумага',
                     attributes: [
-                        {id: 1, name: 'Format'},
-                        {id: 2, name: 'Color'}
+                        {id: 1, name: 'Формат'},
+                        {id: 2, name: 'Цвет'}
                     ]
                 }, {
                     id: 2,
-                    name: 'Test 1',
+                    name: 'Чернила',
                     attributes: [
-                        {id: 5, name: 'attr 1'},
-                        {id: 6, name: 'attr 2'}
+                        {id: 5, name: 'Цвет'},
+                        {id: 6, name: 'Тара'}
                     ]
                 }
             ],
             attributeList: [
-                {id: 1, name: 'Format', categoryId: 1},
-                {id: 2, name: 'Color', categoryId: 1},
-                {id: 5, name: 'attr 1', categoryId: 2},
-                {id: 6, name: 'attr 2', categoryId: 2}
+                {id: 1, name: 'Формат', categoryId: 1},
+                {id: 2, name: 'Цвет', categoryId: 1},
+                {id: 5, name: 'Цвет', categoryId: 2},
+                {id: 6, name: 'Тара', categoryId: 2}
             ]
         });
     }
@@ -52,10 +52,10 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
     private addNewPosition(): void {
         const newPosition: IPositionItem = {
             id: Date.now(),
-            name: 'Undefined position name',
+            name: 'Неизвестная позиция',
             category: null,
             attribute: null,
-            value: 'Undefined value'
+            value: 'Неопределенное значение'
         };
 
         this.setState({
@@ -102,10 +102,10 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                 <table style = {CommonStyles.Table}>
                     <thead>
                         <tr>
-                            <th style={CommonStyles.TableColumn}>Name</th>
-                            <th style={CommonStyles.TableColumn}>Category</th>
-                            <th style={CommonStyles.TableColumn}>Attribute</th>
-                            <th style={CommonStyles.TableColumn}>Value</th>
+                            <th style={CommonStyles.TableColumn}>Имя</th>
+                            <th style={CommonStyles.TableColumn}>Категория</th>
+                            <th style={CommonStyles.TableColumn}>Аттрибут</th>
+                            <th style={CommonStyles.TableColumn}>Значение</th>
                             <th style={CommonStyles.TableColumn}></th>
                         </tr>
                     </thead>
@@ -121,7 +121,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                 {positionListTable}
 
                 <button style={CommonStyles.Button} onClick={this.addNewPosition}>
-                    Add position
+                    Добавить позицию
                 </button>
             </div>
         );

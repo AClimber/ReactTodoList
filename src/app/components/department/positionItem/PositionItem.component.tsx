@@ -109,7 +109,7 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
                     {valueElement}
                 </td>
                 <th>
-                    <button onClick={this.removeItem}>Remove</button>
+                    <button onClick={this.removeItem}>Удалить</button>
                 </th>
             </tr>
         );

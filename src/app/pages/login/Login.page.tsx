@@ -73,7 +73,7 @@ export class LoginPage extends React.Component<IDefaultProps, ILoginState> {
 
         return (
             <form style={loginContainerStyle}>
-                <h2>Welcome to site</h2>
+                <h2>Добро пожаловать на сайт!</h2>
 
                 <p>{this.state.validationMessage}</p>
 

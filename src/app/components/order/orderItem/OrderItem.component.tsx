@@ -106,7 +106,7 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
                     {priceElement}
                 </td>
                 <td>
-                    <button onClick={this.removeItem}>Remove</button>
+                    <button onClick={this.removeItem}>Удалить</button>
                 </td>
             </tr>
         )

@@ -26,44 +26,46 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             clientList: [
                 {
                     id: 1,
-                    name: 'IP 1'
+                    name: 'ИП 1'
                 },
                 {
                     id: 2,
-                    name: 'IP 2'
+                    name: 'ИП 2'
                 },
                 {
                     id: 3,
-                    name: 'IP 3'
+                    name: 'ИП 3'
                 }
             ],
             positionList: [
                 {
                     id: 1,
-                    name: 'Position name1',
+                    name: 'Позиция 1',
                     category: {
                         id: 1,
-                        name: 'Paper',
+                        name: 'Бумага',
                         attributes: [
-                            {id: 1, name: 'Format'},
-                            {id: 2, name: 'Color'}
+                            {id: 1, name: 'Формат'},
+                            {id: 2, name: 'Цвет'},
+                            {id: 3, name: 'Толщина'}
                         ]
                     },
-                    attribute: {id: 1, name: 'Format'},
+                    attribute: {id: 1, name: 'Формат'},
                     value: '100'
                 },
                 {
                     id: 2,
-                    name: 'Position name2',
+                    name: 'Позиция 2',
                     category: {
                         id: 1,
-                        name: 'Paper',
+                        name: 'Бумага',
                         attributes: [
-                            {id: 1, name: 'Format'},
-                            {id: 2, name: 'Color'}
+                            {id: 1, name: 'Формат'},
+                            {id: 2, name: 'Цвет'},
+                            {id: 3, name: 'Толщина'}
                         ]
                     },
-                    attribute: {id: 2, name: 'Color'},
+                    attribute: {id: 2, name: 'Цвет'},
                     value: '200'
                 }
             ]
@@ -123,10 +125,10 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
                 <table style = {CommonStyles.Table}>
                     <thead>
                         <tr>
-                            <th style={CommonStyles.TableColumn}>Position</th>
-                            <th style={CommonStyles.TableColumn}>Amount</th>
-                            <th style={CommonStyles.TableColumn}>Client</th>
-                            <th style={CommonStyles.TableColumn}>Price</th>
+                            <th style={CommonStyles.TableColumn}>Позиция</th>
+                            <th style={CommonStyles.TableColumn}>Количество</th>
+                            <th style={CommonStyles.TableColumn}>Клиент</th>
+                            <th style={CommonStyles.TableColumn}>Цена</th>
                             <th style={CommonStyles.TableColumn}></th>
                         </tr>
                     </thead>
@@ -142,7 +144,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
                 {orderTable}
 
                 <button style={CommonStyles.Button} onClick={this.addNewOrder}>
-                    Add order
+                    Добавить заказ
                 </button>
             </div>
         );

@@ -53,7 +53,7 @@ export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultSt
     private addNewAttribute(): void {
         const newAttributes = [...this.props.category.attributes, {
             id: Date.now(),
-            name: 'Undefined Attribute'
+            name: 'Неизвестный аттрибут'
         }];
         const category: ICategory = assign({}, this.props.category, {attributes: newAttributes});
 
@@ -83,7 +83,7 @@ export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultSt
                 <hr/>
                 {attributesElement}
                 <button className="add-button" onClick={this.addNewAttribute} style={CommonStyles.Button}>
-                    Add attribute
+                    Добавить аттрибут
                 </button>
             </div>
         );

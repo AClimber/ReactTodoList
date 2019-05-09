@@ -38,19 +38,19 @@ export class AppComponent extends React.Component<IDefaultProps, IAppState> {
         return [
             {
                 path: DICTIONARY,
-                label: 'Dictionary'
+                label: 'Категории/атрибуты'
             },
             {
                 path: DEPARTMENT,
-                label: 'Items for order'
+                label: 'Составлющие заказа'
             },
             {
                 path: ORDER,
-                label: 'Order'
+                label: 'Заказ'
             },
             {
                 path: DASHBOARD,
-                label: 'Dashboard'
+                label: 'Список заказов'
             }
         ];
     }

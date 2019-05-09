@@ -22,7 +22,7 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
     private addNewCategory(): void {
         const category: ICategory = {
             id: Date.now(),
-            name: 'Undefined Category',
+            name: 'Неизвестная категория',
             attributes: []
         };
 
@@ -69,7 +69,7 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
                 {listItems}
 
                 <button className="add-button" onClick={this.addNewCategory} style={CommonStyles.Button}>
-                    Add category
+                    Добавить категорию
                 </button>
             </div>
         );
