@@ -1,11 +1,16 @@
 import * as React from 'react';
 
-import {IOrderProps, IOrderState, IOrder} from './Order.interface';
+import {IOrderProps, IOrderState, IOrder, IClient} from './Order.interface';
 import {filter, map} from 'lodash-es';
 import {OrderItemComponent} from './orderItem/OrderItem.component';
 import {CommonStyles} from '../../styles/Common.style';
+import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
+import {DataStorage} from '../../services/dataStorage/dataStorage.service';
+import { DataStorageConstants } from '../../services/dataStorage/dataStorage.constant';
 
 export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
+    private dataStorage: IDataStorage;
+
     constructor(props: IOrderProps) {
         super(props);
 
@@ -15,6 +20,8 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             orderList: []
         };
 
+        this.dataStorage = new DataStorage();
+
         this.addNewOrder = this.addNewOrder.bind(this);
         this.onChangeItem = this.onChangeItem.bind(this);
         this.onRemoveItem = this.onRemoveItem.bind(this);
@@ -22,52 +29,28 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
 
     componentWillMount(): void {
         //ToDo: get from BE
+        const clientList: IClient[] = [
+            {
+                id: 1,
+                name: 'IP 1'
+            },
+            {
+                id: 2,
+                name: 'IP 2'
+            },
+            {
+                id: 3,
+                name: 'IP 3'
+            }
+        ];
+
         this.setState({
-            clientList: [
-                {
-                    id: 1,
-                    name: 'IP 1'
-                },
-                {
-                    id: 2,
-                    name: 'IP 2'
-                },
-                {
-                    id: 3,
-                    name: 'IP 3'
-                }
-            ],
-            positionList: [
-                {
-                    id: 1,
-                    name: 'Position name1',
-                    category: {
-                        id: 1,
-                        name: 'Paper',
-                        attributes: [
-                            {id: 1, name: 'Format'},
-                            {id: 2, name: 'Color'}
-                        ]
-                    },
-                    attribute: {id: 1, name: 'Format'},
-                    value: '100'
-                },
-                {
-                    id: 2,
-                    name: 'Position name2',
-                    category: {
-                        id: 1,
-                        name: 'Paper',
-                        attributes: [
-                            {id: 1, name: 'Format'},
-                            {id: 2, name: 'Color'}
-                        ]
-                    },
-                    attribute: {id: 2, name: 'Color'},
-                    value: '200'
-                }
-            ]
+            clientList: clientList,
+            positionList: this.dataStorage.getData(DataStorageConstants.TABLE.POSITION) || [],
+            orderList: this.dataStorage.getData(DataStorageConstants.TABLE.ORDER) || []
         });
+
+        this.dataStorage.saveData(DataStorageConstants.TABLE.CLIENT, clientList);
     }
 
     private addNewOrder(): void {
@@ -81,7 +64,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
 
         this.setState({
             orderList: [...this.state.orderList, newOrder]
-        });
+        }, this.saveOrder);
     }
 
     private onChangeItem(item: IOrder): void {
@@ -94,7 +77,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
 
         this.setState({
             orderList: updatedOrderList
-        });
+        }, this.saveOrder);
     }
 
     private onRemoveItem(id: number): void {
@@ -102,7 +85,11 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             orderList: filter(this.state.orderList, position => {
                 return position.id !== id;
             })
-        });
+        }, this.saveOrder);
+    }
+
+    private saveOrder(): void {
+        this.dataStorage.saveData(DataStorageConstants.TABLE.ORDER, this.state.orderList);
     }
 
     render(): React.ReactNode {
