@@ -5,14 +5,22 @@ import {ICategory, IDictionaryProps, IDictionaryState} from "./Dictionary.interf
 import {CategoryItem} from "./categoryItem/CategoryItem.component";
 import {filter, map} from "lodash-es";
 import {CommonStyles} from '../../styles/Common.style';
+import {DataStorage} from '../../services/dataStorage/dataStorage.service';
+import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
+import {DataStorageConstants} from '../../services/dataStorage/dataStorage.constant';
 
 export class DictionaryComponent extends React.Component<IDictionaryProps, IDictionaryState> {
+    private dataStorage: IDataStorage;
+
     constructor(props: IDictionaryProps) {
         super(props);
 
+        this.dataStorage = new DataStorage();
+
         this.state = {
-            categoryList: []
+            categoryList: this.dataStorage.getData(DataStorageConstants.TABLE.CATEGORY) || []
         };
+
 
         this.addNewCategory = this.addNewCategory.bind(this);
         this.onCategoryChange = this.onCategoryChange.bind(this);
@@ -28,7 +36,7 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
 
         this.setState({
             categoryList: [...this.state.categoryList, category]
-        });
+        }, this.saveCategory);
     }
 
     private onCategoryChange(category: ICategory): void {
@@ -41,7 +49,7 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
 
         this.setState({
             categoryList: updatedCategoryList
-        });
+        }, this.saveCategory);
     }
 
     private onCategoryRemove(id: number): void {
@@ -51,7 +59,11 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
 
         this.setState({
             categoryList: updatedCategoryList
-        });
+        }, this.saveCategory);
+    }
+
+    private saveCategory(): void {
+        this.dataStorage.saveData(DataStorageConstants.TABLE.CATEGORY, this.state.categoryList);
     }
 
     render(): React.ReactNode {

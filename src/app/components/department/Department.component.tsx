@@ -1,14 +1,21 @@
 import * as React from 'react';
-import {IDepartmentProps, IDepartmentState} from "./Department.interface";
+import {IDepartmentProps, IDepartmentState, IAttributeWithCatagory} from "./Department.interface";
 import {PositionItemComponent} from "./positionItem/PositionItem.component";
 import {IPositionItem} from "./positionItem/PositionItem.interface";
-import {map, filter} from "lodash-es";
+import {map, filter, forEach, assign} from "lodash-es";
 import {CommonStyles} from '../../styles/Common.style';
+import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
+import {DataStorage} from '../../services/dataStorage/dataStorage.service';
+import {DataStorageConstants} from '../../services/dataStorage/dataStorage.constant';
+import {ICategory} from '../dictionary/Dictionary.interface';
 
 export class DepartmentComponent extends React.Component<IDepartmentProps, IDepartmentState> {
+    private dataStorage: IDataStorage;
+
     constructor(props: IDepartmentProps) {
         super(props);
 
+        this.dataStorage = new DataStorage();
         this.state = {
             categoryList: [],
             attributeList: [],
@@ -22,30 +29,18 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
 
     componentWillMount(): void {
         //ToDo: get category list with attributes from BE
+        const categoryList: ICategory[] = this.dataStorage.getData(DataStorageConstants.TABLE.CATEGORY);
+        const positionList: IPositionItem[] = this.dataStorage.getData(DataStorageConstants.TABLE.POSITION);
+        let attributeList: IAttributeWithCatagory[] = [];
+
+        forEach(categoryList, category=> {
+            attributeList.push(...map(category.attributes, attr => assign({categoryId: category.id}, attr)));
+        }) 
+        
         this.setState({
-            categoryList: [
-                {
-                    id: 1,
-                    name: 'Бумага',
-                    attributes: [
-                        {id: 1, name: 'Формат'},
-                        {id: 2, name: 'Цвет'}
-                    ]
-                }, {
-                    id: 2,
-                    name: 'Чернила',
-                    attributes: [
-                        {id: 5, name: 'Цвет'},
-                        {id: 6, name: 'Тара'}
-                    ]
-                }
-            ],
-            attributeList: [
-                {id: 1, name: 'Формат', categoryId: 1},
-                {id: 2, name: 'Цвет', categoryId: 1},
-                {id: 5, name: 'Цвет', categoryId: 2},
-                {id: 6, name: 'Тара', categoryId: 2}
-            ]
+            categoryList: categoryList || [],
+            attributeList: attributeList || [],
+            positionList: positionList || []
         });
     }
 
@@ -60,7 +55,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
 
         this.setState({
             positionList: [...this.state.positionList, newPosition]
-        });
+        }, this.savePosition);
     }
 
     private onChangeItem(item: IPositionItem): void {
@@ -73,7 +68,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
 
         this.setState({
             positionList: updatedPositionList
-        });
+        }, this.savePosition);
     }
 
     private onRemoveItem(id: number): void {
@@ -81,7 +76,11 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             positionList: filter(this.state.positionList, position => {
                 return position.id !== id;
             })
-        });
+        }, this.savePosition);
+    }
+
+    private savePosition(): void {
+        this.dataStorage.saveData(DataStorageConstants.TABLE.POSITION, this.state.positionList);
     }
 
     render(): React.ReactNode {
