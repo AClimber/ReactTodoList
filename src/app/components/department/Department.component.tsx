@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IDepartmentProps, IDepartmentState, IAttributeWithCatagory} from "./Department.interface";
+import {IDepartmentProps, IDepartmentState} from "./Department.interface";
 import {PositionItemComponent} from "./positionItem/PositionItem.component";
 import {IPositionItem} from "./positionItem/PositionItem.interface";
 import {map, filter, forEach, assign} from "lodash-es";
@@ -18,7 +18,6 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
         this.dataStorage = new DataStorage();
         this.state = {
             categoryList: [],
-            attributeList: [],
             positionList: []
         };
 
@@ -28,18 +27,11 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
     }
 
     componentWillMount(): void {
-        //ToDo: get category list with attributes from BE
         const categoryList: ICategory[] = this.dataStorage.getData(DataStorageConstants.TABLE.CATEGORY);
         const positionList: IPositionItem[] = this.dataStorage.getData(DataStorageConstants.TABLE.POSITION);
-        let attributeList: IAttributeWithCatagory[] = [];
-
-        forEach(categoryList, category=> {
-            attributeList.push(...map(category.attributes, attr => assign({categoryId: category.id}, attr)));
-        }) 
         
         this.setState({
             categoryList: categoryList || [],
-            attributeList: attributeList || [],
             positionList: positionList || []
         });
     }
@@ -49,8 +41,8 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             id: Date.now(),
             name: 'Неизвестная позиция',
             category: null,
-            attribute: null,
-            value: 'Неопределенное значение'
+            attributes: null,
+            amount: 0
         };
 
         this.setState({
@@ -90,7 +82,6 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                     key={positionItem.id}
                     item={positionItem} 
                     categoryList={this.state.categoryList}
-                    attributeList={this.state.attributeList}
                     onChangeItem={this.onChangeItem}
                     onRemoveItem={this.onRemoveItem}
                 />
@@ -104,7 +95,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
                             <th style={CommonStyles.TableColumn}>Имя</th>
                             <th style={CommonStyles.TableColumn}>Категория</th>
                             <th style={CommonStyles.TableColumn}>Аттрибут</th>
-                            <th style={CommonStyles.TableColumn}>Значение</th>
+                            <th style={CommonStyles.TableColumn}>Количество</th>
                             <th style={CommonStyles.TableColumn}></th>
                         </tr>
                     </thead>

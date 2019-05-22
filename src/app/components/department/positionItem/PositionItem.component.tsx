@@ -1,11 +1,9 @@
 import * as React from 'react';
-import {IPositionItemProps, IPositionItemState, IPositionItem} from "./PositionItem.interface";
+import {IPositionItemProps, IPositionItemState, IPositionItem, IAttributeWithValue} from "./PositionItem.interface";
 import {ReactNode} from "react";
 import {ICategory} from '../../dictionary/Dictionary.interface';
 import {CustomSelectComponent} from "./../../customSelect/CustomSelect.component";
-import {IAttributeWithCatagory} from '../Department.interface';
-import {get, filter, assign, omit, head} from 'lodash-es';
-import {ICustomSelectSettings} from '../../customSelect/CustomSelect.interface';
+import {get, filter, assign, omit, head, map, forEach} from 'lodash-es';
 import {InputValueComponent} from '../../inputValue/InputValue.component';
 
 
@@ -14,24 +12,33 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
         super(props);
 
         this.categoryChange = this.categoryChange.bind(this);
-        this.attributeChange = this.attributeChange.bind(this);
+        //this.attributeChange = this.attributeChange.bind(this);
         this.valueChange = this.valueChange.bind(this);
         this.nameChange = this.nameChange.bind(this);
         this.removeItem = this.removeItem.bind(this);
     }
     
     private categoryChange(selectedOption: ICategory): void {
+        const attributes: IAttributeWithValue[] = map(selectedOption.attributes, attribute => {
+            return assign({}, attribute, {value: 'Неизвестное значение'});
+        }); 
         const updatedItem: IPositionItem = assign({}, this.props.item, {
             category: selectedOption,
-            attribute: head(selectedOption.attributes)
+            attributes: attributes
         });
         this.props.onChangeItem(updatedItem);
     }
 
-    private attributeChange(selectedOption: IAttributeWithCatagory): void {
-        const updatedItem: IPositionItem = assign({}, this.props.item, {
-            attribute: omit(selectedOption, ['categoryId'])
+    private attributeChange(attrId: number, event: React.ChangeEvent): void {
+        const updatedAttributes = forEach(this.props.item.attributes, attribute => {
+            if (attribute.id === attrId) {
+                attribute.value = event.target['value'];
+            }
         });
+        const updatedItem: IPositionItem = assign({}, this.props.item, {
+            attributes: updatedAttributes
+        });
+
         this.props.onChangeItem(updatedItem);
     }
 
@@ -45,7 +52,7 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
         }
 
         const updatedItem: IPositionItem = assign({}, this.props.item, {
-            value: value
+            amount: value
         });
         this.props.onChangeItem(updatedItem); 
     }
@@ -62,31 +69,25 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
     }
 
     render(): React.ReactNode {
-        const {name, category, attribute, value} = this.props.item;
+        const {name, category, attributes, amount} = this.props.item;
         const selectedCategoryId = get(category, 'id');
-        const selectedAttributeId = get(attribute, 'id');
-        const filteredAttributeList = selectedCategoryId
-            ? filter(this.props.attributeList, {categoryId: selectedCategoryId})
-            : [];
-        const attributeSelectSettings: ICustomSelectSettings = {
-            isDisabled: selectedCategoryId ? false : true
-        };
         const categoryListElement: ReactNode =  
             <CustomSelectComponent
                 onChange={this.categoryChange}
                 list={this.props.categoryList}
                 selectedItemId={selectedCategoryId}
             />
-        const attributeListElement: ReactNode =  
-            <CustomSelectComponent
-                onChange={this.attributeChange}
-                list={filteredAttributeList}
-                selectedItemId={selectedAttributeId}
-                settings={attributeSelectSettings}
-            />
+        const attributeListElement: ReactNode[] = map(attributes, attr => {
+            return (
+                <div key={selectedCategoryId + '-' + attr.id} id={'category-' + selectedCategoryId + '-attribute-' + attr.id}>
+                    <label>{attr.name}</label> 
+                    <input value={attr.value} onChange={this.attributeChange.bind(this, attr.id)}/>
+                </div>
+            )
+        });
         const valueElement: ReactNode = 
             <input
-                value={value}
+                value={amount}
                 onChange={this.valueChange}
             />
         const nameElement: ReactNode = 
@@ -94,8 +95,13 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
                 value={name}
                 onChange={this.nameChange}
             />
+        const rowStyle: React.CSSProperties = {
+            height: 30 * attributeListElement.length +'px',
+            verticalAlign: "top"
+        };
+
         return (
-            <tr>
+            <tr style={rowStyle}>
                 <td>
                     {nameElement}
                 </td>
