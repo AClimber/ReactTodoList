@@ -56,9 +56,9 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
     private addNewOrder(): void {
         const newOrder: IOrder = {
             id: Date.now(),
-            position: null,
+            name: 'Неопределенное значение',
+            positions: [],
             client: null,
-            amount: 0,
             price: 0
         };
 
@@ -110,8 +110,8 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
                 <table style = {CommonStyles.Table}>
                     <thead>
                         <tr>
-                            <th style={CommonStyles.TableColumn}>Позиция</th>
-                            <th style={CommonStyles.TableColumn}>Количество</th>
+                            <th style={CommonStyles.TableColumn}>Название</th>
+                            <th style={CommonStyles.TableColumn}>Позиция/Количество</th>
                             <th style={CommonStyles.TableColumn}>Клиент</th>
                             <th style={CommonStyles.TableColumn}>Цена</th>
                             <th style={CommonStyles.TableColumn}></th>

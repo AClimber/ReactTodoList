@@ -14,8 +14,13 @@ export interface IClient {
 
 export interface IOrder {
     id: number,
-    position: IPositionItem
+    name: string,
+    positions: IPositionItemWithAmount[],
     client: IClient,
-    amount: number,
     price: number
+}
+
+export interface IPositionItemWithAmount {
+    positionId: number,
+    amount: number
 }

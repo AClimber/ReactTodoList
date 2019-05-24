@@ -2,24 +2,32 @@ import * as React from 'react';
 
 import {IOrderItemProps, IOrderItemState} from './OrderItem.interface';
 import {CustomSelectComponent} from "./../../customSelect/CustomSelect.component";
-import {assign, get} from 'lodash-es';
-import {IOrder, IClient} from '../Order.interface';
+import {assign, filter, forEach, get, map} from 'lodash-es';
+import {IOrder, IClient, IPositionItemWithAmount} from '../Order.interface';
 import {IPositionItem} from '../../department/positionItem/PositionItem.interface';
+import {InputValueComponent} from "../../inputValue/InputValue.component";
 
 export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderItemState> {
     constructor(props: IOrderItemProps) {
         super(props);
 
-        this.positionChange = this.positionChange.bind(this);
+        // this.positionChange = this.positionChange.bind(this);
         this.clientChange = this.clientChange.bind(this);
-        this.amountChange = this.amountChange.bind(this);
+        // this.amountChange = this.amountChange.bind(this);
         this.priceChange = this.priceChange.bind(this);
         this.removeItem = this.removeItem.bind(this);
+        this.addPositionToOrder = this.addPositionToOrder.bind(this);
+        this.nameChange = this.nameChange.bind(this);
     }
 
-    private positionChange(selectedOption: IPositionItem): void {
+    private positionChange(positionId: number, selectedOption: IPositionItem): void {
+        const updatedPositions = forEach(this.props.item.positions, position => {
+           if (position.positionId === positionId) {
+               position.positionId = selectedOption.id;
+           }
+        });
         const updatedItem: IOrder = assign({}, this.props.item, {
-            position: selectedOption
+            positions: updatedPositions
         });
         this.props.onChangeItem(updatedItem);
     }
@@ -31,7 +39,7 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
         this.props.onChangeItem(updatedItem);
     }
 
-    private amountChange(event: React.ChangeEvent): void {
+    private amountChange(positionId: number, event: React.ChangeEvent): void {
         //validate value
         const isValid = true;
         const value = event.target['value'];
@@ -40,10 +48,15 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
             return;
         }
 
-        const updatedItem: IOrder = assign({}, this.props.item, {
-            amount: value
+        const updatedPositions = forEach(this.props.item.positions, position => {
+            if (position.positionId === positionId) {
+                position.amount = value;
+            }
         });
-        this.props.onChangeItem(updatedItem); 
+        const updatedItem: IOrder = assign({}, this.props.item, {
+            positions: updatedPositions
+        });
+        this.props.onChangeItem(updatedItem);
     }
 
     private priceChange(event: React.ChangeEvent): void {
@@ -58,46 +71,93 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
         const updatedItem: IOrder = assign({}, this.props.item, {
             price: value
         });
-        this.props.onChangeItem(updatedItem); 
+        this.props.onChangeItem(updatedItem);
     }
 
     private removeItem(): void {
         this.props.onRemoveItem(this.props.item.id);
     }
 
+    private addPositionToOrder(): void {
+        const newPosition: IPositionItemWithAmount = {
+            positionId: undefined,
+            amount: 0
+        };
+        const updatedItem: IOrder = assign({}, this.props.item, {
+            positions: [...this.props.item.positions, newPosition]
+        });
+
+        this.props.onChangeItem(updatedItem);
+    }
+
+    private removePositionFromOrder(positionId: number): void {
+        const filteredPositions: IPositionItemWithAmount[] = filter(this.props.item.positions, position => {
+            return position.positionId !== positionId;
+        });
+
+        const updatedItem: IOrder = assign({}, this.props.item, {
+            positions: filteredPositions
+        });
+
+        this.props.onChangeItem(updatedItem);
+    }
+
+    private nameChange(value: string): void {
+        const updatedItem: IOrder = assign({}, this.props.item, {
+            name: value
+        });
+
+        this.props.onChangeItem(updatedItem);
+    }
+
     render(): React.ReactNode {
-        const {position, amount, client, price} = this.props.item;
-        const positionId = get(position, 'id');
+        const {positions, client, price, id, name} = this.props.item;
         const clientId = get(client, 'id');
-        const positionSelectElement: React.ReactNode = 
+        const positionSelectElementWithAmount: React.ReactNode[] = map(positions, item => {
+                return (
+                    <div key={id + '-' + item.positionId}>
+                        <CustomSelectComponent
+                            onChange={this.positionChange.bind(this, item.positionId)}
+                            list={this.props.positionList}
+                            selectedItemId={item.positionId}
+                        />
+                        <input
+                            value={item.amount}
+                            onChange={this.amountChange.bind(this, item.positionId)}
+                        />
+                        <button onClick={this.removePositionFromOrder.bind(this, item.positionId)}>Удалить позицию</button>
+                    </div>
+                );
+            });
+        const positionAddButton: React.ReactNode = <button onClick={this.addPositionToOrder}>Добавить позицию</button>;
+        const clientSelectElement: React.ReactNode =
             <CustomSelectComponent
-                onChange={this.positionChange} 
-                list={this.props.positionList}
-                selectedItemId={positionId}       
-            />;
-        const clientSelectElement: React.ReactNode = 
-            <CustomSelectComponent
-                onChange={this.clientChange} 
+                onChange={this.clientChange}
                 list={this.props.clientList}
-                selectedItemId={clientId}       
+                selectedItemId={clientId}
             />;
-        const amountElement: React.ReactNode = 
-            <input
-                value={amount}
-                onChange={this.amountChange}
-            />;
-        const priceElement: React.ReactNode = 
+        const priceElement: React.ReactNode =
             <input
                 value={price}
                 onChange={this.priceChange}
             />;
+        const rowStyle: React.CSSProperties = {
+            height: 30 * positionSelectElementWithAmount.length + 'px',
+            verticalAlign: "top"
+        };
+        const nameElement: React.ReactNode =
+            <InputValueComponent
+                value={name}
+                onChange={this.nameChange}
+            />;
         return (
-            <tr>
+            <tr style={rowStyle}>
                 <td>
-                    {positionSelectElement}
+                    {nameElement}
                 </td>
                 <td>
-                    {amountElement}
+                    {positionSelectElementWithAmount}
+                    {positionAddButton}
                 </td>
                 <td>
                     {clientSelectElement}

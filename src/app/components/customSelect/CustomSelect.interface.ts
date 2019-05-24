@@ -1,5 +1,3 @@
-import {ICategory} from "./../dictionary/Dictionary.interface";
-
 export interface ICustomSelectProps {
     selectedItemId: number|string,
     list: any,
