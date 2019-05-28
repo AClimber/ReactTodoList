@@ -115,21 +115,22 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
         const clientId = get(client, 'id');
         const positionSelectElementWithAmount: React.ReactNode[] = map(positions, item => {
                 return (
-                    <div key={id + '-' + item.positionId}>
+                    <div key={id + '-' + item.positionId} className="position">
                         <CustomSelectComponent
                             onChange={this.positionChange.bind(this, item.positionId)}
                             list={this.props.positionList}
                             selectedItemId={item.positionId}
                         />
                         <input
+                            className="custom-input"
                             value={item.amount}
                             onChange={this.amountChange.bind(this, item.positionId)}
                         />
-                        <button onClick={this.removePositionFromOrder.bind(this, item.positionId)}>Удалить позицию</button>
+                        <button className="button-quick button-delete" onClick={this.removePositionFromOrder.bind(this, item.positionId)}></button>
                     </div>
                 );
             });
-        const positionAddButton: React.ReactNode = <button onClick={this.addPositionToOrder}>Добавить позицию</button>;
+        const positionAddButton: React.ReactNode = <button className="button" onClick={this.addPositionToOrder}>Добавить позицию</button>;
         const clientSelectElement: React.ReactNode =
             <CustomSelectComponent
                 onChange={this.clientChange}
@@ -138,6 +139,7 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
             />;
         const priceElement: React.ReactNode =
             <input
+                className="custom-input"
                 value={price}
                 onChange={this.priceChange}
             />;
@@ -166,7 +168,7 @@ export class OrderItemComponent extends React.Component<IOrderItemProps, IOrderI
                     {priceElement}
                 </td>
                 <td>
-                    <button onClick={this.removeItem}>Удалить</button>
+                    <button className="button-quick button-delete" onClick={this.removeItem}></button>
                 </td>
             </tr>
         )

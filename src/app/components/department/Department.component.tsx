@@ -3,7 +3,6 @@ import {IDepartmentProps, IDepartmentState} from "./Department.interface";
 import {PositionItemComponent} from "./positionItem/PositionItem.component";
 import {IPositionItem} from "./positionItem/PositionItem.interface";
 import {map, filter, forEach, assign} from "lodash-es";
-import {CommonStyles} from '../../styles/Common.style';
 import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
 import {DataStorage} from '../../services/dataStorage/dataStorage.service';
 import {DataStorageConstants} from '../../services/dataStorage/dataStorage.constant';
@@ -29,7 +28,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
     componentWillMount(): void {
         const categoryList: ICategory[] = this.dataStorage.getData(DataStorageConstants.TABLE.CATEGORY);
         const positionList: IPositionItem[] = this.dataStorage.getData(DataStorageConstants.TABLE.POSITION);
-        
+
         this.setState({
             categoryList: categoryList || [],
             positionList: positionList || []
@@ -78,9 +77,9 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
     render(): React.ReactNode {
         const positionListElement: React.ReactNode = map(this.state.positionList, positionItem => {
             return (
-                <PositionItemComponent 
+                <PositionItemComponent
                     key={positionItem.id}
-                    item={positionItem} 
+                    item={positionItem}
                     categoryList={this.state.categoryList}
                     onChangeItem={this.onChangeItem}
                     onRemoveItem={this.onRemoveItem}
@@ -89,14 +88,14 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
         });
         const positionListTable: React.ReactNode = this.state.positionList.length > 0
             ? (
-                <table style = {CommonStyles.Table}>
+                <table className="table">
                     <thead>
                         <tr>
-                            <th style={CommonStyles.TableColumn}>Имя</th>
-                            <th style={CommonStyles.TableColumn}>Категория</th>
-                            <th style={CommonStyles.TableColumn}>Аттрибут</th>
-                            <th style={CommonStyles.TableColumn}>Количество</th>
-                            <th style={CommonStyles.TableColumn}></th>
+                            <th className="table-column">Имя</th>
+                            <th className="table-column">Категория</th>
+                            <th className="table-column">Аттрибут</th>
+                            <th className="table-column">Количество</th>
+                            <th className="table-column"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,7 +109,7 @@ export class DepartmentComponent extends React.Component<IDepartmentProps, IDepa
             <div className="container">
                 {positionListTable}
 
-                <button style={CommonStyles.Button} onClick={this.addNewPosition}>
+                <button className="button" onClick={this.addNewPosition}>
                     Добавить позицию
                 </button>
             </div>

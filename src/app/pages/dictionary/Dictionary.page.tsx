@@ -14,7 +14,7 @@ export class DictionaryPage extends React.Component<IDefaultProps, IDefaultState
 
     render(): ReactNode {
         return (
-            <div>
+            <div className="dictionary-page">
                 <h3>Страница формирования категорий/аттрибутов</h3>
                 <hr/>
                 <DictionaryComponent/>

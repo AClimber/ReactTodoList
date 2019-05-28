@@ -3,10 +3,9 @@ import * as React from 'react';
 import {IOrderProps, IOrderState, IOrder, IClient} from './Order.interface';
 import {filter, map} from 'lodash-es';
 import {OrderItemComponent} from './orderItem/OrderItem.component';
-import {CommonStyles} from '../../styles/Common.style';
 import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
 import {DataStorage} from '../../services/dataStorage/dataStorage.service';
-import { DataStorageConstants } from '../../services/dataStorage/dataStorage.constant';
+import {DataStorageConstants} from '../../services/dataStorage/dataStorage.constant';
 
 export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
     private dataStorage: IDataStorage;
@@ -107,14 +106,14 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
         });
         const orderTable: React.ReactNode = this.state.orderList.length > 0
             ? (
-                <table style = {CommonStyles.Table}>
+                <table className="table">
                     <thead>
                         <tr>
-                            <th style={CommonStyles.TableColumn}>Название</th>
-                            <th style={CommonStyles.TableColumn}>Позиция/Количество</th>
-                            <th style={CommonStyles.TableColumn}>Клиент</th>
-                            <th style={CommonStyles.TableColumn}>Цена</th>
-                            <th style={CommonStyles.TableColumn}></th>
+                            <th className="table-column">Название</th>
+                            <th className="table-column">Позиция/Количество</th>
+                            <th className="table-column">Клиент</th>
+                            <th className="table-column">Цена</th>
+                            <th className="table-column"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,7 +127,7 @@ export class OrderComponent extends React.Component<IOrderProps, IOrderState> {
             <div className="container">
                 {orderTable}
 
-                <button style={CommonStyles.Button} onClick={this.addNewOrder}>
+                <button className="button" onClick={this.addNewOrder}>
                     Добавить заказ
                 </button>
             </div>

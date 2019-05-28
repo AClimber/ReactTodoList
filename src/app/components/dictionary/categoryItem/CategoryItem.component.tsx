@@ -6,7 +6,6 @@ import {IAttribute, ICategory} from "../Dictionary.interface";
 import {IDefaultState} from "../../../interfaces/interfaces";
 
 import {InputValueComponent} from "../../inputValue/InputValue.component"
-import {CommonStyles} from '../../../styles/Common.style';
 
 export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultState> {
     constructor(props: ICategoryItemProps) {
@@ -74,15 +73,19 @@ export class CategoryItem extends React.Component<ICategoryItemProps, IDefaultSt
         });
 
         return (
-            <div style={CommonStyles.Container}>
+            <div className="container">
                 <InputValueComponent
                     value={this.props.category.name}
                     onChange={this.onCategoryChange}
                     onRemove={this.onCategoryRemove}
                 ></InputValueComponent>
                 <hr/>
-                {attributesElement}
-                <button className="add-button" onClick={this.addNewAttribute} style={CommonStyles.Button}>
+
+                <div className="category-attributes">
+                    {attributesElement}
+                </div>
+
+                <button className="button" onClick={this.addNewAttribute}>
                     Добавить аттрибут
                 </button>
             </div>

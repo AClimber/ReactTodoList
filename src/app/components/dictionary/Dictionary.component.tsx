@@ -4,7 +4,6 @@ import {ReactNode} from "react";
 import {ICategory, IDictionaryProps, IDictionaryState} from "./Dictionary.interface";
 import {CategoryItem} from "./categoryItem/CategoryItem.component";
 import {filter, map} from "lodash-es";
-import {CommonStyles} from '../../styles/Common.style';
 import {DataStorage} from '../../services/dataStorage/dataStorage.service';
 import {IDataStorage} from '../../services/dataStorage/dataStorage.interface';
 import {DataStorageConstants} from '../../services/dataStorage/dataStorage.constant';
@@ -80,7 +79,7 @@ export class DictionaryComponent extends React.Component<IDictionaryProps, IDict
             <div className="dictionary-container">
                 {listItems}
 
-                <button className="add-button" onClick={this.addNewCategory} style={CommonStyles.Button}>
+                <button className="button" onClick={this.addNewCategory}>
                     Добавить категорию
                 </button>
             </div>

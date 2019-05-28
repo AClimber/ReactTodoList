@@ -81,12 +81,13 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
             return (
                 <div key={selectedCategoryId + '-' + attr.id} id={'category-' + selectedCategoryId + '-attribute-' + attr.id}>
                     <label>{attr.name}</label>
-                    <input value={attr.value} onChange={this.attributeChange.bind(this, attr.id)}/>
+                    <input className="custom-input" value={attr.value} onChange={this.attributeChange.bind(this, attr.id)}/>
                 </div>
             )
         });
         const valueElement: ReactNode =
             <input
+                className="custom-input"
                 value={amount}
                 onChange={this.valueChange}
             />;
@@ -115,7 +116,7 @@ export class PositionItemComponent extends React.Component<IPositionItemProps, I
                     {valueElement}
                 </td>
                 <th>
-                    <button onClick={this.removeItem}>Удалить</button>
+                    <button className="button-quick button-delete" onClick={this.removeItem}></button>
                 </th>
             </tr>
         );
