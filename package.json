@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/AClimber/ReactTodoList#readme",
   "dependencies": {
-    "lodash-es": "^4.17.11",
+    "lodash-es": "^4.17.21",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-router": "^5.0.0",
